@@ -7,7 +7,7 @@ let sentenceArray = [];
 
 textarea.addEventListener('input', () => {
     let lineNum = Math.floor(textarea.scrollHeight / 90); // 90 is line-height
-    console.log(lineNum);
+    textarea.style.height = 112 + ((lineNum - 1) * 90) + 'px'; // 90 is line-height
 });
 
 sendButton.addEventListener("click", () => {
@@ -17,12 +17,9 @@ sendButton.addEventListener("click", () => {
         sentenceArray.push(sentence);
         textarea.value = "";
         console.log(sentenceArray);
+        textarea.style.height = 112 + 'px';
     }
 });
-
-// setInterval(() => {
-//     console.log(textareaHeight);
-// }, 500);
 
 
 /*
