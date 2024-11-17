@@ -24,7 +24,7 @@ textarea {
     width: 800px;
     height: 112px;
     font-size: 60px;
-    line-height: 1.5;
+    line-height: 90px; /*1.5*/
 
     padding: 10px;
     box-sizing: border-box; /* padding 포함 크기 계산 */

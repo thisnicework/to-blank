@@ -1,19 +1,28 @@
 window.open("./input.html", "input", "width=600, height=600, resizable=yes, scrollbars=yes");
 
-const inputText = document.getElementById('inputText');
+const textarea = document.getElementById('textarea');
 const sendButton = document.getElementById('sendButton');
 
 let sentenceArray = [];
 
+textarea.addEventListener('input', () => {
+    let lineNum = Math.floor(textarea.scrollHeight / 90); // 90 is line-height
+    console.log(lineNum);
+});
+
 sendButton.addEventListener("click", () => {
-    let sentence = inputText.value.trim();
+    let sentence = textarea.value.trim();
 
     if(sentence !== "") {
         sentenceArray.push(sentence);
-        inputText.value = "";
+        textarea.value = "";
         console.log(sentenceArray);
     }
 });
+
+// setInterval(() => {
+//     console.log(textareaHeight);
+// }, 500);
 
 
 /*
