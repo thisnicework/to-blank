@@ -7,6 +7,18 @@ html, body {
     user-select: none;         /* 표준 */
 }
 
+#whiz {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    z-index: 0;
+
+    border-radius: 60px;
+    background-color: #1F8AFF;
+}
+
 #UI {
     position: absolute;
     left: 50%;
@@ -21,18 +33,6 @@ html, body {
     border-radius: 60px;
     height: auto;
     width: auto;
-}
-
-#whiz {
-    display: none;
-    position: absolute;
-    left: 50%;
-    top: 48%;
-    transform: translateX(-50%) translateY(-50%) scale(1);
-    z-index: 0;
-
-    border-radius: 60px;
-    background-color: #1F8AFF;
 }
 
 textarea {
@@ -68,7 +68,7 @@ textarea {
 
     background-color: #1F8AFF;
     color: rgb(250, 250, 250);
-    transition: 0.15s;
+    transition: 0.1s;
 }
 
 #sendButton:hover {

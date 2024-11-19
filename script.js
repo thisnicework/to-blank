@@ -20,8 +20,9 @@ sendButton.addEventListener("click", () => {
         sentenceArray.push(sentence);
         textarea.value = "";
         console.log(sentenceArray);
-        textarea.style.height = 112 + "px"; // set default height
+        console.log(UI.offsetHeight);
         whizMotion();
+        textarea.style.height = 112 + "px"; // set default height
     }
 });
 
@@ -29,27 +30,30 @@ function whizMotion() {
     let scale = 1;
     whiz.style.width = UI.offsetWidth + "px";
     whiz.style.height = UI.offsetHeight + "px";
-
     whiz.style.display = "block";
+    textarea.style.transition = "0.7s";
 
-    let whizInterval = setInterval(() => {
-        whiz.style.transform = `translateX(-50%) translateY(-50%) scale(${scale -= 0.002})`;
-        whiz.style.top = whiz.offsetTop - 1 + "px";
+    setTimeout(() => {
+        let scale = 1;
+        function animate() {
+            scale -= 0.014;
+            whiz.style.transform = `translateX(-50%) translateY(-50%) scale(${scale})`;
+            whiz.style.top = whiz.offsetTop - 6 + "px";
 
-        if(whiz.offsetTop === 0) {
-            setTimeout(() => {
+            if(whiz.offsetTop <= 0) {
                 whiz.style.display = "none";
-                clearInterval(whizInterval);
-
                 scale = 1;
-                whiz.style.transform = `scale(${1})`;
-                whiz.style.left = 50 + "%";
-                whiz.style.top = 48 + "%"
+                whiz.style.transform = `translateX(-50%) translateY(-50%) scale(1)`;
+                whiz.style.top = "48%";
                 whiz.style.width = UI.offsetWidth + "px";
                 whiz.style.height = UI.offsetHeight + "px";
-            }, 500);
+                textarea.style.transition = "0s";
+                return;
+            }
+            requestAnimationFrame(animate);
         }
-    }, 0.1);
+        requestAnimationFrame(animate);
+    }, 150);
 }
 
 
