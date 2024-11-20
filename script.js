@@ -36,7 +36,7 @@ function whizMotion() {
     setTimeout(() => {
         let scale = 1;
         function animate() {
-            scale -= 0.014;
+            scale -= 0.0131;
             whiz.style.transform = `translateX(-50%) translateY(-50%) scale(${scale})`;
             whiz.style.top = whiz.offsetTop - 6 + "px";
 
