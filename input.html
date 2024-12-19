@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-blank</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="container">
+    <span>What's your </span>
+    <div id="underline">
+        <span>to </span>
+        <label for="textarea"></label>
+        <textarea id="textarea" placeholder=""></textarea>
+        <span id="dot">.</span>
+    </div>
+    <div id="charCount">0/30</div>
+</div>
+<script>
+    const textarea = document.getElementById('textarea');
+    const charCount = document.getElementById('charCount');
+    let lineNum = 1;
+    const maxChars = 30; // text input limit value
+
+    textarea.addEventListener('input', () => {
+        const font = window.getComputedStyle(textarea).font;
+        const textWidth = getTextWidth(textarea.value, font);
+
+        // text input limit
+        if(textarea.value.length > maxChars) {
+            textarea.value = textarea.value.slice(0, maxChars);
+        }
+
+        charCount.textContent = `${textarea.value.length}/${maxChars}`;
+
+        textarea.style.width = Math.max(330, textWidth + 20) + "px";
+
+        lineNum = Math.max(1, Math.ceil(textWidth / 700));
+
+        if(textWidth > 700) {
+            textarea.style.height = lineNum * 64 + "px";
+            textarea.style.whiteSpace = 'pre-wrap';
+        } else {
+            textarea.style.height = lineNum * 64 + "px";
+            textarea.style.whiteSpace = 'nowrap';
+        }
+
+        // text size measure func
+        function getTextWidth(text, font) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = font;
+            return context.measureText(text).width;
+        }
+    });
+
+    textarea.addEventListener('keypress', (event) => {
+        if(event.key === 'Enter') {
+            event.preventDefault(); // enter key blocked
+            const data = textarea.value.trim();
+            console.log(data);
+            window.opener.postMessage(data, '*'); // send data
+            lineNum = 1;
+            textarea.style.height = lineNum * 64 + "px";
+            textarea.style.width = 330 + "px";
+            textarea.value = "";
+            charCount.textContent = `0/${maxChars}`;
+        }
+    });
+</script>
+</body>
+</html>
